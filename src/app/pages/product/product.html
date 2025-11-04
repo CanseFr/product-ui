@@ -3,7 +3,7 @@
     <div class="card-body">
       <table class="table table-striped">
 
-        @if (products.length != 0) {
+        @if (this.products.length != 0) {
           <thead>
 
           <tr>
@@ -16,7 +16,7 @@
           </thead>
         }
 
-        @for (p of products; track p.id) {<!-- ; let index = $index; let nbr=$count -->
+        @for (p of this.products; track p.id) {<!-- ; let index = $index; let nbr=$count -->
             <!--          @if ($first) {-->
             <!--          @if ($index === 0) {-->
             <!--          <h6>Nombre Total : {{$count}}</h6>-->

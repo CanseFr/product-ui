@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ProductType} from '../../models/product';
 import {FormsModule} from '@angular/forms';
+import {ProductService} from '../../services/product-service';
 
 @Component({
   selector: 'app-add-product',
@@ -10,19 +11,17 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './add-product.html',
   styleUrl: './add-product.css',
 })
-export class AddProduct implements OnInit {
+export class AddProduct {
 
-  newProduct = new ProductType();
+  newProduct!:ProductType;
+  message?: string;
 
-  constructor() {
+  constructor(private productService: ProductService) {
   }
 
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
-    }
-
-    addProduct(): void {
-    console.log(this.newProduct);
-    }
+  addProduct() {
+    this.productService.addProduct(this.newProduct)
+    this.message = "Produit " + this.newProduct.name + " ajouté avec succés !"
+  }
 
 }
