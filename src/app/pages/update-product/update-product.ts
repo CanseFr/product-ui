@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ProductType} from '../../models/product';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {CategoryType} from '../../models/category';
 
 @Component({
   selector: 'app-update-product',
@@ -18,6 +19,8 @@ export class UpdateProduct implements OnInit {
 
   product!: ProductType
   param: string
+  categories?: CategoryType[]
+  categoryIdSelected?:number
 
   constructor(
     private productService: ProductService,
@@ -28,11 +31,14 @@ export class UpdateProduct implements OnInit {
     this.product = this.productService.getProductById(Number(this.param))!
   }
 
+  // Bug : Cat imprimante ...
   ngOnInit(): void {
-    console.log(this.param)
+    this.categories = this.productService.listCategory()
+    this.categoryIdSelected = this.product.category?.id
   }
 
   updateProduct() {
+    this.product.category = this.productService.getCategoryById(Number(this.categoryIdSelected))
     this.productService.updateProduct(this.product)
     this.router.navigate(['/products'])
   }

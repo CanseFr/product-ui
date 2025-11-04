@@ -1,27 +1,35 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductType} from '../../models/product';
 import {FormsModule} from '@angular/forms';
 import {ProductService} from '../../services/product-service';
+import {CategoryType} from '../../models/category';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
-  imports: [
-    FormsModule
-  ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './add-product.html',
   styleUrl: './add-product.css',
 })
-export class AddProduct {
-
-  newProduct!:ProductType;
+export class AddProduct implements OnInit {
+  newProduct: ProductType = {} as ProductType;
+  categories: CategoryType[] = [];
+  categoryIdSelected: number | null = null;
   message?: string;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.categories = this.productService.listCategory();
   }
 
   addProduct() {
-    this.productService.addProduct(this.newProduct)
-    this.message = "Produit " + this.newProduct.name + " ajouté avec succés !"
+    if (this.categoryIdSelected == null) return;
+    this.newProduct.category = this.productService.getCategoryById(this.categoryIdSelected)!;
+    this.productService.addProduct(this.newProduct);
+    this.message = `Produit ${this.newProduct.name} ajouté avec succès !`;
+    this.router.navigate(['/products']);
   }
 
 }
