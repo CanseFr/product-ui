@@ -27,4 +27,14 @@ export class ProductService {
     this.products.splice(index,1);
   }
 
+  getProductById(id: number){
+    return this.products.find(p => p.id == id)
+  }
+
+  updateProduct(product: ProductType){
+    this.products = this.products.filter((p)=>p.id !== product.id)
+    this.products.push(product)
+    this.products.sort((a, b)=> a.id! - b.id!)
+  }
+
 }

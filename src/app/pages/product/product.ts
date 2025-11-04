@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ProductType} from '../../models/product';
 import {DatePipe} from '@angular/common';
 import {ProductService} from '../../services/product-service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-product',
   imports: [
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './product.html',
   styleUrl: './product.css',

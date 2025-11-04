@@ -29,7 +29,15 @@
             <td>{{ p.price }}</td>
             <td>{{ p.dateCreation | date: "dd/MM/yyyy" }}</td>
             <td>
-              <button (click)="deleteProduct($index)" type="button" class="btn btn-outline-danger">X</button>
+              <button (click)="deleteProduct($index)" type="button" class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+            <td>
+              <button [routerLink]="['/update-product/' + p.id]" type="button" class="btn btn-outline-info">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+
             </td>
           </tr>
           </tbody>
@@ -41,6 +49,7 @@
           <h1 class="text-center">Aucun produit pour le moment</h1>
         }
       </table>
+
     </div>
   </div>
 </div>
