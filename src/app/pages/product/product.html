@@ -2,21 +2,40 @@
   <div class="card shadow mb-4">
     <div class="card-body">
       <table class="table table-striped">
-        <tr>
-          <th>Id</th>
-          <th>Nom</th>
-          <th>Prix</th>
-          <th>Date Création</th>
-        </tr>
-        @for (p of products; track p.id) {
+
+        @if (products.length != 0) {
+          <thead>
+
+          <tr>
+            <th>N°</th>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Date Création</th>
+          </tr>
+          </thead>
+        }
+
+        @for (p of products; track p.id) {<!-- ; let index = $index; let nbr=$count -->
+            <!--          @if ($first) {-->
+            <!--          @if ($index === 0) {-->
+            <!--          <h6>Nombre Total : {{$count}}</h6>-->
+            <!--          }-->
           <tbody>
           <tr>
+            <td>{{ $index + 1 }}</td>
             <td>{{ p.id }}</td>
             <td>{{ p.name }}</td>
             <td>{{ p.price }}</td>
             <td>{{ p.dateCreation | date: "dd/MM/yyyy" }}</td>
           </tr>
           </tbody>
+
+          @if ($last) {
+            <h6>Nombre Total : {{ $count }}</h6>
+          }
+        } @empty {
+          <h1 class="text-center">Aucun produit pour le moment</h1>
         }
       </table>
     </div>
