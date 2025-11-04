@@ -28,6 +28,9 @@
             <td>{{ p.name }}</td>
             <td>{{ p.price }}</td>
             <td>{{ p.dateCreation | date: "dd/MM/yyyy" }}</td>
+            <td>
+              <button (click)="deleteProduct($index)" type="button" class="btn btn-outline-danger">X</button>
+            </td>
           </tr>
           </tbody>
 
