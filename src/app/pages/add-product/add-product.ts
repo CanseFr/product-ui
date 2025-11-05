@@ -28,7 +28,7 @@ export class AddProduct implements OnInit {
     if (this.categoryIdSelected == null) return;
     // this.newProduct.category = this.productService.getCategoryById(this.categoryIdSelected)!;
     this.productService.addProduct(this.newProduct);
-    this.message = `Produit ${this.newProduct.name} ajouté avec succès !`;
+    this.message = `Produit ${this.newProduct.nameProduct} ajouté avec succès !`;
     this.router.navigate(['/products']);
   }
 
