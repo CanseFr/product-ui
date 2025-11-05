@@ -18,18 +18,17 @@ export class AddProduct implements OnInit {
   categoryIdSelected: number | null = null;
   message?: string;
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router) {
+  }
 
   ngOnInit(): void {
     // this.categories = this.productService.listCategory();
   }
 
   addProduct() {
-    if (this.categoryIdSelected == null) return;
     // this.newProduct.category = this.productService.getCategoryById(this.categoryIdSelected)!;
-    this.productService.addProduct(this.newProduct);
-    this.message = `Produit ${this.newProduct.nameProduct} ajouté avec succès !`;
-    this.router.navigate(['/products']);
+    this.productService.addProduct(this.newProduct)
+      .subscribe(() => this.router.navigate(['/products']))
   }
 
 }

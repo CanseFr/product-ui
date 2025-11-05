@@ -1,55 +1,49 @@
 import {Injectable} from '@angular/core';
 import {ProductType} from '../models/product';
 import {CategoryType} from '../models/category';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders(
+    { 'Content-Type': 'application/json; charchars=utf-8' },
+  ),
+}
+
+const apiUrl = "http://localhost:8080"
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  products: ProductType[]
+  products!: ProductType[]
   // categories: CategoryType[]
 
-  constructor() {
+  constructor(private http: HttpClient) {
     // this.categories = [
     //   {id: 1, name: 'PC'},
     //   {id: 2, name: 'Imprimante'},
     // ]
-    this.products = [
-      {id: 1, name: "MacBook Pro", price: 1200, dateCreation: new Date("02/02/2025"), category: {id: 1, name: 'PC'},},
-      {id: 2, name: "Mic Mini", price: 1800, dateCreation: new Date("02/22/2025"), category: {id: 1, name: 'PC'},},
-      {id: 3, name: "MacBook Air", price: 1500, dateCreation: new Date("02/12/2025"), category: {id: 1, name: 'PC'},},
-      {id: 4, name: "Epson E342", price: 345, dateCreation: new Date("02/12/2025"), category: {id: 1, name: 'Imprimante'},}
-    ]
   }
 
-  listProducts() {
-    return this.products;
+  listProducts(): Observable<ProductType[]> {
+    return this.http.get<ProductType[]>(`${apiUrl}/product/api`)
   }
 
-  // listCategory() {
-  //   return this.categories
-  // }
-
-  addProduct(product: ProductType) {
-    this.products.push(product);
+  addProduct(product: ProductType): Observable<ProductType> {
+    return this.http.post<ProductType>(`${apiUrl}/product/api`, product, httpOptions)
   }
 
-  deleteProduct(index: number) {
-    this.products.splice(index, 1);
+  deleteProduct(index: number): Observable<ProductType> {
+    return this.http.delete(`${apiUrl}/product/api/${index}`, httpOptions)
   }
 
-  getProductById(id: number) {
-    return this.products.find(p => p.id == id)
+  getProductById(id: number): Observable<ProductType> {
+    return this.http.get<ProductType>(`${apiUrl}/product/api/${id}`)
   }
 
-  // getCategoryById(id: number) {
-  //   return this.categories.find(p => p.id == id)
-  // }
-
-  updateProduct(product: ProductType) {
-    this.products = this.products.filter((p) => p.id !== product.id)
-    this.products.push(product)
-    this.products.sort((a, b) => a.id! - b.id!)
+  updateProduct(product: ProductType): Observable<ProductType> {
+    return this.http.put<ProductType>(`${apiUrl}/product/api`, product, httpOptions)
   }
 
 }

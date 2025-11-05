@@ -3,9 +3,9 @@
     <h2>Ajouter un Produit :</h2>
   </div>
   <form (ngSubmit)="addProduct()">
-    <div class="col-sm-2 col-md-2 col-lg-2">
+    <div hidden class="col-sm-2 col-md-2 col-lg-2">
       <label>ID Produit</label>
-      <input type="text" [(ngModel)]="newProduct.id" name="idProduit" class="form-control">
+      <input disabled type="text" [(ngModel)]="newProduct.id" name="idProduit" class="form-control">
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
       <label>Nom Produit</label>
@@ -15,9 +15,9 @@
       <label>Prix Produit</label>
       <input type="number" [(ngModel)]=" newProduct.priceProduct" name="prixProduit" class="form-control">
     </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
+    <div hidden class="col-sm-4 col-md-4 col-lg-4">
       <label>Date création</label>
-      <input type="date" [(ngModel)]=" newProduct.dateCreated" name="dateCreation" class="form-control">
+      <input disabled type="date" [(ngModel)]=" newProduct.dateCreated" name="dateCreation" class="form-control">
     </div>
 <!--    <div class="col-sm-4 col-md-4 col-lg-4">-->
 <!--      <label>Categorie</label>-->

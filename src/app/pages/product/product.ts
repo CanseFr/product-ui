@@ -20,13 +20,19 @@ export class Product implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products = this.productService.listProducts();
+    this.loadProducts()
+  }
+
+  loadProducts() {
+    this.productService.listProducts()
+      .subscribe(p => this.products = p)
   }
 
   deleteProduct(index: number) {
     let conf = confirm('Souhaitez vous supprimer ce produit ?');
     if (conf) {
-      this.productService.deleteProduct(index);
+      this.productService.deleteProduct(index)
+        .subscribe(() => this.loadProducts())
     }
   }
 

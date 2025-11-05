@@ -31,7 +31,7 @@
             <td>{{ p.dateCreated | date: "dd/MM/yyyy" }}</td>
 <!--            <td>{{ p.category?.name }}</td>-->
             <td>
-              <button (click)="deleteProduct($index)" type="button" class="btn btn-outline-danger">
+              <button (click)="deleteProduct(p.id!)" type="button" class="btn btn-outline-danger">
                 <i class="bi bi-trash"></i>
               </button>
             </td>

@@ -20,7 +20,7 @@ export class UpdateProduct implements OnInit {
   product!: ProductType
   param: string
   categories?: CategoryType[]
-  categoryIdSelected?:number
+  categoryIdSelected?: number
 
   constructor(
     private productService: ProductService,
@@ -28,18 +28,18 @@ export class UpdateProduct implements OnInit {
     private router: Router
   ) {
     this.param = this.activatedRoute.snapshot.paramMap.get('id')!
-    this.product = this.productService.getProductById(Number(this.param))!
+    this.productService.getProductById(Number(this.param))
+      .subscribe(p => this.product = p)
   }
 
   // Bug : Cat imprimante ...
   ngOnInit(): void {
     // this.categories = this.productService.listCategory()
-    this.categoryIdSelected = this.product.category?.id
+    // this.categoryIdSelected = this.product.category?.id
   }
 
   updateProduct() {
-    // this.product.category = this.productService.getCategoryById(Number(this.categoryIdSelected))
     this.productService.updateProduct(this.product)
-    this.router.navigate(['/products'])
+      .subscribe(() => this.router.navigate(['/products']))
   }
 }
