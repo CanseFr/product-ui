@@ -19,14 +19,14 @@
       <label>Date création</label>
       <input disabled type="date" [(ngModel)]=" newProduct.dateCreated" name="dateCreation" class="form-control">
     </div>
-<!--    <div class="col-sm-4 col-md-4 col-lg-4">-->
-<!--      <label>Categorie</label>-->
-<!--      <select id="category" name="category" class="form-select" aria-label="Default select example"  [(ngModel)]="categoryIdSelected">-->
-<!--        @for (cat of categories; track cat.id) {-->
-<!--          <option [value]="cat.id"> {{ cat.name }}</option>-->
-<!--        }-->
-<!--      </select>-->
-<!--    </div>-->
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Categorie</label>
+      <select id="category" name="category" class="form-select" aria-label="Default select example"  [(ngModel)]="categoryIdSelected">
+        @for (cat of categories; track cat.id) {
+          <option [value]="cat.id"> {{ cat.name }}</option>
+        }
+      </select>
+    </div>
     <div class="mt-2">
       <button type="submit" class="btn btn-success">Ajouter</button>
       <div>

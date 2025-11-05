@@ -22,11 +22,15 @@ export class AddProduct implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.categories = this.productService.listCategory();
+    this.productService.getCategories()
+      .subscribe(c => this.categories = c)
   }
 
   addProduct() {
-    // this.newProduct.category = this.productService.getCategoryById(this.categoryIdSelected)!;
+
+    this.newProduct.category = this.categories.find(cat=> cat.id ===Number(this.categoryIdSelected));
+    this.newProduct.dateCreated=  new Date()
+
     this.productService.addProduct(this.newProduct)
       .subscribe(() => this.router.navigate(['/products']))
   }

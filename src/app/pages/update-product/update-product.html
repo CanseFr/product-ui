@@ -20,14 +20,14 @@
       <input disabled type="date" [ngModel]="product.dateCreated | date: 'yyyy-MM-dd'"
              (ngModelChange)=" product.dateCreated= $event" name="dateCreation" class="form-control">
     </div>
-<!--    <div class="col-sm-4 col-md-4 col-lg-4">-->
-<!--      <label>Categorie</label>-->
-<!--      <select id="category" name="category" class="form-select" aria-label="Default select example"  [(ngModel)]="categoryIdSelected">-->
-<!--        @for (cat of categories; track cat.id) {-->
-<!--          <option [value]="cat.id"> {{ cat.name }}</option>-->
-<!--        }-->
-<!--      </select>-->
-<!--    </div>-->
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label>Categorie</label>
+      <select id="id" name="id" class="form-select" aria-label="Default select example"  [(ngModel)]="categoryIdSelected">
+        @for (cat of categories; track cat.id) {
+          <option [value]="cat.id"> {{ cat.name }}</option>
+        }
+      </select>
+    </div>
     <div class="mt-2">
       <button type="submit" (click)="updateProduct()" class="btn btn-success">Modifer</button>
     </div>
