@@ -7,13 +7,13 @@ import {CategoryType} from '../models/category';
 })
 export class ProductService {
   products: ProductType[]
-  categories: CategoryType[]
+  // categories: CategoryType[]
 
   constructor() {
-    this.categories = [
-      {id: 1, name: 'PC'},
-      {id: 2, name: 'Imprimante'},
-    ]
+    // this.categories = [
+    //   {id: 1, name: 'PC'},
+    //   {id: 2, name: 'Imprimante'},
+    // ]
     this.products = [
       {id: 1, name: "MacBook Pro", price: 1200, dateCreation: new Date("02/02/2025"), category: {id: 1, name: 'PC'},},
       {id: 2, name: "Mic Mini", price: 1800, dateCreation: new Date("02/22/2025"), category: {id: 1, name: 'PC'},},
@@ -26,9 +26,9 @@ export class ProductService {
     return this.products;
   }
 
-  listCategory() {
-    return this.categories
-  }
+  // listCategory() {
+  //   return this.categories
+  // }
 
   addProduct(product: ProductType) {
     this.products.push(product);
@@ -42,9 +42,9 @@ export class ProductService {
     return this.products.find(p => p.id == id)
   }
 
-  getCategoryById(id: number) {
-    return this.categories.find(p => p.id == id)
-  }
+  // getCategoryById(id: number) {
+  //   return this.categories.find(p => p.id == id)
+  // }
 
   updateProduct(product: ProductType) {
     this.products = this.products.filter((p) => p.id !== product.id)

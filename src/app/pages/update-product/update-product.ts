@@ -33,12 +33,12 @@ export class UpdateProduct implements OnInit {
 
   // Bug : Cat imprimante ...
   ngOnInit(): void {
-    this.categories = this.productService.listCategory()
+    // this.categories = this.productService.listCategory()
     this.categoryIdSelected = this.product.category?.id
   }
 
   updateProduct() {
-    this.product.category = this.productService.getCategoryById(Number(this.categoryIdSelected))
+    // this.product.category = this.productService.getCategoryById(Number(this.categoryIdSelected))
     this.productService.updateProduct(this.product)
     this.router.navigate(['/products'])
   }
