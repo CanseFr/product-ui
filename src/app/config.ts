@@ -1,4 +1,5 @@
 import {HttpHeaders} from '@angular/common/http';
+import {environment} from '../environments/environment.development';
 
 export const httpOptions = {
   headers: new HttpHeaders(
@@ -6,10 +7,8 @@ export const httpOptions = {
   ),
 }
 
-const baseUrl = "http://localhost:8080"
-
 const productPath = "/product"
 const productApiPath = "/api"
 
-export const apiProduct = baseUrl + productPath + productApiPath
+export const apiProduct = environment.baseUrl + productPath + productApiPath
 
