@@ -7,18 +7,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/products">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="/products">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Produits
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/add-product">Ajouter</a></li>
-            <li><a class="dropdown-item" href="#">Lister</a></li>
-            <li><a class="dropdown-item" href="/search-by-name">Recherche par nom</a></li>
-            <li><a class="dropdown-item" href="/search-by-cat">Recherche par categorie</a></li>
-            <li><a class="dropdown-item" href="/list-cat">Consulter categorie</a></li>
+            <li><a class="dropdown-item" routerLink="/add-product">Ajouter</a></li>
+            <li><a class="dropdown-item" routerLink="#">Lister</a></li>
+            <li><a class="dropdown-item" routerLink="/search-by-name">Recherche par nom</a></li>
+            <li><a class="dropdown-item" routerLink="/search-by-cat">Recherche par categorie</a></li>
+            <li><a class="dropdown-item" routerLink="/list-cat">Consulter categorie</a></li>
           </ul>
         </li>
       </ul>
@@ -26,14 +26,14 @@
 
       <ul class="navbar-nav ms-auto m-2 ">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" routerLink="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             [USERNAME]
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+            <li><a class="dropdown-item" routerLink="#">Logout</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" routerLink="#">Profile</a></li>
           </ul>
         </li>
       </ul>
