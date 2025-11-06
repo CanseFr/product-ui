@@ -10,5 +10,8 @@ export const httpOptions = {
 const productPath = "/product"
 const productApiPath = "/api"
 
+const categoryPath = "/cat"
+
 export const apiProduct = environment.baseUrl + productPath + productApiPath
+export const apiCategory = environment.baseUrl + productPath + categoryPath
 

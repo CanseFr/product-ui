@@ -3,7 +3,7 @@ import {ProductType} from '../models/product';
 import {CategoryType} from '../models/category';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {apiProduct, httpOptions} from '../config';
+import {apiCategory, apiProduct, httpOptions} from '../config';
 
 
 @Injectable({
@@ -35,7 +35,8 @@ export class ProductService {
   }
 
   getCategories() {
-    return this.http.get<CategoryType[]>(`${apiProduct}/cat`)
+    // return this.http.get<CategoryType[]>(`${apiProduct}/cat`)
+    return this.http.get<CategoryType[]>(`${apiCategory}`)
   }
 
 }
