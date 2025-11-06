@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {ProductType} from '../models/product';
-import {CategoryType} from '../models/category';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {apiCategory, apiProduct, httpOptions} from '../config';
+import {CategoryWrapper} from '../models/category-wrapper';
+import {CategoryType} from '../models/category';
+import {Product} from '../pages/product/product';
 
 
 @Injectable({
@@ -35,8 +37,12 @@ export class ProductService {
   }
 
   getCategories() {
-    // return this.http.get<CategoryType[]>(`${apiProduct}/cat`)
-    return this.http.get<CategoryType[]>(`${apiCategory}`)
+    // return this.http.get<CategoryWrapper[]>(`${apiCategory}`)
+    return this.http.get<CategoryType[]>(`${apiProduct}/cat`)
+  }
+
+  findByCategory(idCat:number){
+    return this.http.get<ProductType[]>(`${apiProduct}/prod-by-cat/${idCat}`)
   }
 
 }

@@ -28,8 +28,8 @@ export class AddProduct implements OnInit {
 
   addProduct() {
 
-    this.newProduct.category = this.categories.find(cat=> cat.id ===Number(this.categoryIdSelected));
-    this.newProduct.dateCreated=  new Date()
+    this.newProduct.category = this.categories.find(cat => cat.id === Number(this.categoryIdSelected));
+    this.newProduct.dateCreated = new Date()
 
     this.productService.addProduct(this.newProduct)
       .subscribe(() => this.router.navigate(['/products']))

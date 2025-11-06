@@ -33,8 +33,8 @@ export class UpdateProduct implements OnInit {
   }
 
   ngOnInit(): void {
-      this.productService.getCategories()
-      .subscribe(c=>{
+    this.productService.getCategories()
+      .subscribe(c => {
         this.categories = c
         this.categoryIdSelected = this.product.category!.id
         console.log(this.product.category)
@@ -42,7 +42,7 @@ export class UpdateProduct implements OnInit {
   }
 
   updateProduct() {
-    this.product.category = this.categories.find(cat=> cat.id === Number(this.categoryIdSelected))
+    this.product.category = this.categories.find(cat => cat.id === Number(this.categoryIdSelected))
     this.productService.updateProduct(this.product)
       .subscribe(() => this.router.navigate(['/products']))
   }
