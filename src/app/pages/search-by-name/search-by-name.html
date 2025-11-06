@@ -9,10 +9,17 @@
 <!--    </div>-->
 <!--  </form>-->
 
+<!--  <form class="form-inline">-->
+<!--    <div class="form-group mx-sm-3 mb-2 mt-2 ">-->
+<!--      <label>Nom Produit</label>-->
+<!--      <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">-->
+<!--    </div>-->
+<!--  </form>-->
+
   <form class="form-inline">
     <div class="form-group mx-sm-3 mb-2 mt-2 ">
       <label>Nom Produit</label>
-      <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+      <input #nameProduct [(ngModel)]="searchTerm" name="searchTerm" class="form-control" >
     </div>
   </form>
 
@@ -26,7 +33,8 @@
           <th>Date Création</th>
           <th>Catégorie</th>
         </tr>
-        @for (p of products; track p.id)
+<!--        @for (p of products; track p.id)-->
+        @for (p of products | searchFilter: searchTerm; track p.id)
           {
             <tbody>
             <tr>

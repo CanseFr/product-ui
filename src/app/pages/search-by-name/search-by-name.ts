@@ -3,19 +3,22 @@ import {DatePipe, TitleCasePipe} from '@angular/common';
 import {ProductType} from '../../models/product';
 import {FormsModule} from '@angular/forms';
 import {ProductService} from '../../services/product-service';
+import {SearchFilterPipe} from '../../pipes/search-filter-pipe';
 
 @Component({
   selector: 'app-search-by-name',
   imports: [
     DatePipe,
     FormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    SearchFilterPipe
   ],
   templateUrl: './search-by-name.html',
   styleUrl: './search-by-name.css',
 })
 export class SearchByName implements OnInit {
   products!: ProductType[];
+  searchTerm!: string;
 
   // productName!: string
 
@@ -32,10 +35,10 @@ export class SearchByName implements OnInit {
   //     .subscribe(p=>this.products = p);
   // }
 
-  onKeyUp(filterText: string) {
-    this.products = this.products
-      .filter(i => i.nameProduct!.toLowerCase().includes(filterText))
-  }
+  // onKeyUp(filterText: string) {
+  //   this.products = this.products
+  //     .filter(i => i.nameProduct!.toLowerCase().includes(filterText))
+  // }
 
 
 }
