@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+        <tr> <th>Id</th><th>Nom Catégorie</th> </tr>
+        </thead>
+        @for(cat of categories; track cat.id)
+        {
+          <tbody >
+          <tr>
+            <td>{{cat.id}}</td>
+            <td>{{cat.name}}</td>
+            <td>
+              <button class="btn btn-info" (click)="handleEditCat(cat!)">
+                Editer
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="handleDeleteCat(cat.id!)">
+                Delete
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        }
+      </table>
+    </div>
+  </div>
+</div>
