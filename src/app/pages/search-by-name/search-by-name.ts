@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DatePipe} from '@angular/common';
+import {DatePipe, TitleCasePipe} from '@angular/common';
 import {ProductType} from '../../models/product';
 import {FormsModule} from '@angular/forms';
 import {ProductService} from '../../services/product-service';
@@ -8,26 +8,33 @@ import {ProductService} from '../../services/product-service';
   selector: 'app-search-by-name',
   imports: [
     DatePipe,
-    FormsModule
+    FormsModule,
+    TitleCasePipe
   ],
   templateUrl: './search-by-name.html',
   styleUrl: './search-by-name.css',
 })
 export class SearchByName implements OnInit {
   products!: ProductType[];
-  productName!: string
+
+  // productName!: string
 
   constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
-       this.productService.listProducts()
-         .subscribe(p => this.products= p)
-    }
+    this.productService.listProducts()
+      .subscribe(p => this.products = p)
+  }
 
-  findProduct() {
-    this.productService.findByName(this.productName)
-      .subscribe(p=>this.products = p);
+  // findProduct() {
+  //   this.productService.findByName(this.productName)
+  //     .subscribe(p=>this.products = p);
+  // }
+
+  onKeyUp(filterText: string) {
+    this.products = this.products
+      .filter(i => i.nameProduct!.toLowerCase().includes(filterText))
   }
 
 

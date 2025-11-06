@@ -1,12 +1,21 @@
 <div class="container">
+
+<!--  <form class="form-inline">-->
+<!--    <div class="form-group mx-sm-3 mb-2 mt-2 ">-->
+<!--      <label>Nom Produit</label>-->
+<!--      <input type="text" class="form-control" [(ngModel)]="productName" name="nomProduit"-->
+<!--             class="form-control">-->
+<!--      <button type="submit" (click)="findProduct()" class="btn btn-primary mb-2 ml-2">Rechercher</button>-->
+<!--    </div>-->
+<!--  </form>-->
+
   <form class="form-inline">
     <div class="form-group mx-sm-3 mb-2 mt-2 ">
       <label>Nom Produit</label>
-      <input type="text" class="form-control" [(ngModel)]="productName" name="nomProduit"
-             class="form-control">
-      <button type="submit" (click)="findProduct()" class="btn btn-primary mb-2 ml-2">Rechercher</button>
+      <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
     </div>
   </form>
+
   <div class="card shadow mb-4">
     <div class="card-body">
       <table class="table table-striped">
@@ -26,7 +35,7 @@
               <td>{{p.priceProduct}}</td>
               <td>{{p.dateCreated | date:'dd/MM/yyyy'}}</td>
               @if(p.category){
-                <td>{{p.category.name}}</td> }
+                <td>{{p.category.name | titlecase}}</td> }
               @else {
                 <td>PAS DE CATEGORIE</td>
               }
