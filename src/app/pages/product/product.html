@@ -30,17 +30,20 @@
             <td>{{ p.priceProduct }}</td>
             <td>{{ p.dateCreated | date: "dd/MM/yyyy" }}</td>
             <td>{{ p.category?.name }}</td>
+            @if (authService.isAdmin){
             <td>
               <button (click)="deleteProduct(p.id!)" type="button" class="btn btn-outline-danger">
                 <i class="bi bi-trash"></i>
               </button>
             </td>
+            }
+            @if (authService.isAdmin){
             <td>
               <button [routerLink]="['/update-product/' + p.id]" type="button" class="btn btn-outline-info">
                 <i class="bi bi-pencil-square"></i>
               </button>
-
             </td>
+            }
           </tr>
           </tbody>
 

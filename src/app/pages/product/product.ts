@@ -3,6 +3,7 @@ import {ProductType} from '../../models/product';
 import {DatePipe} from '@angular/common';
 import {ProductService} from '../../services/product-service';
 import {RouterLink} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +17,7 @@ import {RouterLink} from '@angular/router';
 export class Product implements OnInit {
   products!: ProductType[];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, protected authService: AuthenticationService) {
   }
 
   ngOnInit(): void {

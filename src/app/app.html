@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Gestion des produits</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -17,10 +18,12 @@
             @if (authService.isAdmin) {
               <li><a class="dropdown-item" routerLink="/add-product">Ajouter</a></li>
             }
-            <li><a class="dropdown-item" routerLink="#">Lister</a></li>
+            <li><a class="dropdown-item" routerLink="/">Lister</a></li>
             <li><a class="dropdown-item" routerLink="/search-by-name">Recherche par nom</a></li>
             <li><a class="dropdown-item" routerLink="/search-by-cat">Recherche par categorie</a></li>
-            <li><a class="dropdown-item" routerLink="/list-cat">Consulter categorie</a></li>
+            @if (authService.isAdmin) {
+              <li><a class="dropdown-item" routerLink="/list-cat">Consulter categorie</a></li>
+            }
           </ul>
         </li>
       </ul>
@@ -32,9 +35,16 @@
             {{ (authService.loggedUser || '🔴') | titlecase }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/login">Login</a></li>
-            <li><button class="dropdown-item" type="button" (click)="handleLogout()">Logout</button></li>
-            <li><hr class="dropdown-divider"></li>
+            @if (authService.isLoggedIn) {
+              <li>
+                <button class="dropdown-item" type="button" (click)="handleLogout()">Logout</button>
+              </li>
+            } @else {
+              <li><a class="dropdown-item" routerLink="/login">Login</a></li>
+            }
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item" routerLink="#">Profile</a></li>
           </ul>
         </li>
