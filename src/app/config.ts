@@ -7,6 +7,6 @@ export const httpOptions = {
   ),
 }
 
-export const apiProduct = environment.baseUrl + "/product" + "/api"
-export const apiCategory = environment.baseUrl + "/product" + "/api" +"/cat"
+export const apiProduct = environment.baseUrl + "/api" + "/product"
+export const apiCategory = environment.baseUrl + "/api" + "/cat"
 
