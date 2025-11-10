@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UserClass, UserType} from '../../models/user';
+import {UserClass} from '../../models/user';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Router} from '@angular/router';
@@ -14,18 +14,25 @@ import {Router} from '@angular/router';
 })
 export class Login {
   user: UserClass = new UserClass();
-  error=false
+  error = false
 
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) {
+  }
 
   onLoggedIn() {
-    console.log(this.user);
-    let isValidIUser = this.authService.signIn(this.user!);
-    if (isValidIUser) {
-      this.router.navigate(['/'])
-    } else {
-      this.error =true
-    }
+    this.authService.login(this.user).subscribe({
+      next: (data) => {
+        let jwt
+        if (data.headers.get('Authorization')) {
+          jwt = data.headers.get('Authorization')!.split('Bearer ')[1];
+          this.authService.saveToken(jwt)
+          this.router.navigate(['/'])
+        }
+      },
+      error: (err: any) => {
+        this.error = true;
+      }
+    })
   }
 
 }

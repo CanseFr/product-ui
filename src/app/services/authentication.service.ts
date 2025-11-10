@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {UserType} from '../models/user';
+import {HttpClient} from '@angular/common/http';
+import {apiLogin} from '../config';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +16,10 @@ export class AuthenticationService {
   public loggedUser: string = '';
   public isLoggedIn = false;
   public roles: string[] = [];
+  public token?:string;
+
+  constructor(private http: HttpClient) {
+  }
 
 
   restoreAuth(): void {
@@ -31,21 +38,14 @@ export class AuthenticationService {
     }
   }
 
-  signIn(user: UserType): boolean {
-    const found = this.users.find(
-      (cur) => cur.username === user.username && cur.password === user.password
-    );
-    if (!found) return false;
+  login(user: UserType) {
+    return this.http.post<UserType>(`${apiLogin}`, user, {observe:'response'});
+  }
 
-    this.loggedUser = found.username ?? '';
-    this.isLoggedIn = true;
-    this.roles = found.roles ?? [];
-
-    localStorage.setItem('loggedUser', this.loggedUser);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('roles', JSON.stringify(this.roles));
-
-    return true;
+  saveToken(jwt:string){
+    localStorage.setItem('jwt', jwt);
+    this.token = jwt
+    this.isLoggedIn = true
   }
 
   get isAdmin(): boolean {
