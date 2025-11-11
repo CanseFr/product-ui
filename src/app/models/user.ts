@@ -10,4 +10,6 @@ export class UserClass {
   username?: string;
   password?: string;
   roles?: string[];
+  email?:string;
+  enabled?:boolean;
 }

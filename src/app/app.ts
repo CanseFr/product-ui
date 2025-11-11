@@ -20,10 +20,9 @@ export class App implements OnInit {
   }
 
   ngOnInit () {
-    this.authService.loadToken();
-    if (this.authService.getToken()==null ||
-      this.authService.isTokenExpired())
-      this.router.navigate(['/login']);
+    // this.authService.loadToken();
+    // if (this.authService.getToken()==null || this.authService.isTokenExpired())
+    //   this.router.navigate(['/login']);
   }
 
   handleLogout(): void {

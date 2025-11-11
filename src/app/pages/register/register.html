@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      <form [formGroup]="loginForm">
+        <div class="form-group">
+          <label>Nom Utilisateur :</label>
+          <input id="username" type="text" class="form-control" formControlName="username" required>
+        </div>
+        @if (loginForm.controls['username'].hasError('required') &&
+        loginForm.controls['username'].touched) {
+          <span class="text-danger">Nom Utilisateur est obligatoire</span>
+        }
+        @if (loginForm.controls['username'].hasError('minlength') &&
+        loginForm.controls['username'].touched) {
+          <span class="text-danger">Nom Utilisateur doit contenir un minimum de 3 caracteres</span>
+        }
+        @if (loginForm.controls['username'].hasError('maxlength') &&
+        loginForm.controls['username'].touched) {
+          <span class="text-danger">Nom Utilisateur doit contenir un maximum de 20 caracteres</span>
+        }
+        <div class="form-group">
+          <label>Email :</label>
+          <input id="email" type="text" class="form-control" formControlName="email" required>
+        </div>
+        @if (loginForm.controls['email'].hasError('required') &&
+        loginForm.controls['email'].touched) {
+          <span class="text-danger">Email est obligatoire</span>
+        }
+        @if (loginForm.controls['email'].hasError('email') && loginForm.controls['email'].touched) {
+          <span class="text-danger">Email non valide</span>
+        }
+        <div class="form-group">
+          <label>Mot de passe :</label>
+          <input id="password" type="password" name="password" formControlName="password" class="form-control">
+        </div>
+        @if (loginForm.controls['password'].hasError('required') &&
+        loginForm.controls['password'].touched) {
+          <span class="text-danger">Mot de passe est obligatoire</span>
+        }
+        @if (loginForm.controls['password'].hasError('minlength') &&
+        loginForm.controls['password'].touched) {
+          <span class="text-danger">Mot de passe doit contenir au moins 6 caractères</span>
+        }
+        <div class="form-group">
+          <label>Confirmer Mot de passe :</label>
+          <input id="confirmPassword" type="password" name="confirmPassword" formControlName="confirmPassword" class="form-control">
+        </div>
+        @if (loginForm.controls['confirmPassword'].hasError('required') &&
+        loginForm.controls['confirmPassword'].touched) {
+          <span class="text-danger">Confirmer mot de passe est obligatoire</span>
+        }
+        <div>
+          @if (loginForm.get('confirmPassword')?.touched &&
+          loginForm.get('confirmPassword')?.value != loginForm.get('password')?.value) {
+            <span class="text-danger">Le mot de passe confrmé ne correspond pas au mot de passe tapé</span>
+          }
+        </div>
+        <button type="button" [disabled]="loginForm.invalid" class="btn btn-success form-control mt-4"
+                (click)="onRegister()">S'insrire
+        </button>
+        <p>Vous avez un compte? <a routerLink="/login">Se connecter </a></p>
+      </form>
+    </div>
+  </div>
+</div>
