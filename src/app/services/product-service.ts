@@ -1,9 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {ProductType} from '../models/product';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {apiCategory, apiProduct, httpOptions} from '../config';
 import {CategoryType} from '../models/category';
+import {AuthenticationService} from './authentication.service';
 
 
 @Injectable({
@@ -11,19 +12,26 @@ import {CategoryType} from '../models/category';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private  authService:AuthenticationService) {
   }
 
+
   listProducts(): Observable<ProductType[]> {
-    return this.http.get<ProductType[]>(`${apiProduct}`)
+    let jwt = this.authService.getToken()
+    let httpHeaders = new HttpHeaders({'Authorization': jwt, 'Content-Type': 'application/json; charchars=utf-8'})
+    return this.http.get<ProductType[]>(`${apiProduct}`, {headers: httpHeaders})
   }
 
   addProduct(product: ProductType): Observable<ProductType> {
-    return this.http.post<ProductType>(`${apiProduct}`, product, httpOptions)
+    let jwt = this.authService.getToken()
+    let httpHeaders = new HttpHeaders({'Authorization': jwt})
+    return this.http.post<ProductType>(`${apiProduct}`, product, {headers: httpHeaders})
   }
 
   deleteProduct(index: number): Observable<ProductType> {
-    return this.http.delete(`${apiProduct}/${index}`, httpOptions)
+    let jwt = this.authService.getToken()
+    let httpHeaders = new HttpHeaders({'Authorization': jwt})
+    return this.http.delete(`${apiProduct}/${index}`, {headers: httpHeaders})
   }
 
   getProductById(id: number): Observable<ProductType> {
@@ -31,7 +39,10 @@ export class ProductService {
   }
 
   updateProduct(product: ProductType): Observable<ProductType> {
-    return this.http.put<ProductType>(`${apiProduct}`, product, httpOptions)
+    let jwt = this.authService.getToken()
+    let httpHeaders = new HttpHeaders({'Authorization': jwt})
+
+    return this.http.put<ProductType>(`${apiProduct}`, product, {headers: httpHeaders})
   }
 
   getCategories() {

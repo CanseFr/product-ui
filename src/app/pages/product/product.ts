@@ -27,11 +27,8 @@ export class Product implements OnInit {
   }
 
   loadProducts() {
-    let jwt = this.authService.getToken()
-    let httpHeaders = new HttpHeaders({'Authorization': jwt})
-    this.http.get<ProductType[]>(`${apiProduct}`, {headers: httpHeaders}).subscribe(p => this.products = p)
-    // this.productService.listProducts()
-    //   .subscribe(p => this.products = p)
+    this.productService.listProducts()
+      .subscribe(p => this.products = p)
   }
 
   deleteProduct(index: number) {
