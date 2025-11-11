@@ -17,7 +17,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   styleUrl: './product.css',
 })
 export class Product implements OnInit {
-  products!: ProductType[];
+  products: ProductType[] = [];
 
   constructor(private productService: ProductService, protected authService: AuthenticationService, private http: HttpClient) {
   }

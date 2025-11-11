@@ -19,25 +19,14 @@ export class AuthenticationService {
   }
 
   restoreAuth(): void {
-
     let jwt: any = localStorage.getItem('jwt');
     if (jwt) {
       jwt = this.jwtHelper.decodeToken(jwt)
-
       this.loggedUser = jwt.sub!
       this.isLoggedIn = true
       this.roles = jwt.roles
     }
-
-
-    try {
-      this.roles = localStorage.getItem('roles') ? JSON.parse(localStorage.getItem('roles')!) : [];
-      if (!Array.isArray(this.roles)) this.roles = [];
-    } catch {
-      this.roles = [];
-    }
   }
-
 
   login(user: UserType) {
     return this.http.post<UserType>(`${apiLogin}`, user, {observe: 'response'});
