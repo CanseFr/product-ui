@@ -17,21 +17,15 @@ export class ProductService {
 
 
   listProducts(): Observable<ProductType[]> {
-    let jwt = this.authService.getToken()
-    let httpHeaders = new HttpHeaders({'Authorization': jwt, 'Content-Type': 'application/json; charchars=utf-8'})
-    return this.http.get<ProductType[]>(`${apiProduct}`, {headers: httpHeaders})
+    return this.http.get<ProductType[]>(`${apiProduct}`)
   }
 
   addProduct(product: ProductType): Observable<ProductType> {
-    let jwt = this.authService.getToken()
-    let httpHeaders = new HttpHeaders({'Authorization': jwt})
-    return this.http.post<ProductType>(`${apiProduct}`, product, {headers: httpHeaders})
+    return this.http.post<ProductType>(`${apiProduct}`, product)
   }
 
   deleteProduct(index: number): Observable<ProductType> {
-    let jwt = this.authService.getToken()
-    let httpHeaders = new HttpHeaders({'Authorization': jwt})
-    return this.http.delete(`${apiProduct}/${index}`, {headers: httpHeaders})
+    return this.http.delete(`${apiProduct}/${index}`)
   }
 
   getProductById(id: number): Observable<ProductType> {
@@ -39,10 +33,7 @@ export class ProductService {
   }
 
   updateProduct(product: ProductType): Observable<ProductType> {
-    let jwt = this.authService.getToken()
-    let httpHeaders = new HttpHeaders({'Authorization': jwt})
-
-    return this.http.put<ProductType>(`${apiProduct}`, product, {headers: httpHeaders})
+    return this.http.put<ProductType>(`${apiProduct}`, product,)
   }
 
   getCategories() {

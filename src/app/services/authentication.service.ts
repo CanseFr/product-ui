@@ -34,7 +34,7 @@ export class AuthenticationService {
 
   getToken() {
     this.restoreAuth()
-    return `Bearer ${this.jwtHelper.tokenGetter()}`
+    return this.jwtHelper.tokenGetter()
   }
 
   isTokenExpired(): Boolean {
