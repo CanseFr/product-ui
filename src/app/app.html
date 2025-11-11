@@ -15,13 +15,13 @@
             Produits
           </a>
           <ul class="dropdown-menu">
-            @if (authService.isAdmin) {
+            @if (authService.isAdmin()) {
               <li><a class="dropdown-item" routerLink="/add-product">Ajouter</a></li>
             }
             <li><a class="dropdown-item" routerLink="/">Lister</a></li>
             <li><a class="dropdown-item" routerLink="/search-by-name">Recherche par nom</a></li>
             <li><a class="dropdown-item" routerLink="/search-by-cat">Recherche par categorie</a></li>
-            @if (authService.isAdmin) {
+            @if (authService.isAdmin()) {
               <li><a class="dropdown-item" routerLink="/list-cat">Consulter categorie</a></li>
             }
           </ul>

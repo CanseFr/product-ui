@@ -9,10 +9,10 @@ import {Router} from '@angular/router';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  public loggedUser: string = '';
+  public loggedUser: string|undefined;
   public isLoggedIn = false;
   public roles: string[] = [];
-  public token?: string;
+  public token: string | undefined;
 
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) {
@@ -80,9 +80,9 @@ export class AuthenticationService {
   }
 
   signOut(): void {
-    this.loggedUser = undefined!;
-    this.roles = undefined!;
-    this.token = undefined!;
+    this.loggedUser = undefined;
+    this.roles = [];
+    this.token = undefined;
     this.isLoggedIn = false;
     localStorage.removeItem('jwt');
     this.router.navigate(['/login']);
