@@ -5,11 +5,11 @@ import {TitleCasePipe} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, TitleCasePipe],
+  imports: [RouterOutlet, RouterLink, TitleCasePipe,],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('product-ui');
 
   authService = inject(AuthenticationService);
@@ -17,6 +17,13 @@ export class App {
 
   constructor() {
     this.authService.restoreAuth();
+  }
+
+  ngOnInit () {
+    this.authService.loadToken();
+    if (this.authService.getToken()==null ||
+      this.authService.isTokenExpired())
+      this.router.navigate(['/login']);
   }
 
   handleLogout(): void {

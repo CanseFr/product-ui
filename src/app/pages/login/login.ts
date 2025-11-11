@@ -19,20 +19,24 @@ export class Login {
   constructor(private authService: AuthenticationService, private router: Router) {
   }
 
-  onLoggedIn() {
+  // onLoggedIn() {
+  //   this.authService.login(this.user).subscribe((ok) => {
+  //     if (ok) this.router.navigate(['/']);
+  //     else this.error = true;
+  //   });
+  // }
+  onLoggedIn()
+  {
     this.authService.login(this.user).subscribe({
       next: (data) => {
-        let jwt
-        if (data.headers.get('Authorization')) {
-          jwt = data.headers.get('Authorization')!.split('Bearer ')[1];
-          this.authService.saveToken(jwt)
-          this.router.navigate(['/'])
-        }
+        let jwToken = data.headers.get('Authorization')!;
+        this.authService.saveToken(jwToken);
+        this.router.navigate(['/']);
       },
       error: (err: any) => {
         this.error = true;
       }
-    })
+    });
   }
 
 }

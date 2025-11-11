@@ -4,6 +4,8 @@ import {DatePipe} from '@angular/common';
 import {ProductService} from '../../services/product-service';
 import {RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {apiProduct} from '../../config';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-product',
@@ -17,7 +19,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 export class Product implements OnInit {
   products!: ProductType[];
 
-  constructor(private productService: ProductService, protected authService: AuthenticationService) {
+  constructor(private productService: ProductService, protected authService: AuthenticationService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -25,8 +27,11 @@ export class Product implements OnInit {
   }
 
   loadProducts() {
-    this.productService.listProducts()
-      .subscribe(p => this.products = p)
+    let jwt = this.authService.getToken()
+    let httpHeaders = new HttpHeaders({'Authorization': jwt})
+    this.http.get<ProductType[]>(`${apiProduct}`, {headers: httpHeaders}).subscribe(p => this.products = p)
+    // this.productService.listProducts()
+    //   .subscribe(p => this.products = p)
   }
 
   deleteProduct(index: number) {
