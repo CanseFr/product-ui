@@ -4,9 +4,9 @@ import {inject} from '@angular/core';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthenticationService)
-  const toExclude ="/login"
+  const toExclude =["/login","/register"]
 
-  if(req.url.search(toExclude) === -1) {
+  if( toExclude.includes( req.url)) {
     let jwt = authService.getToken()
     let reqWithToken = req.clone({
       setHeaders: {Authorization: `Bearer ${jwt}`},

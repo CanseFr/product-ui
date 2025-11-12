@@ -9,6 +9,7 @@ import {Login} from './pages/login/login';
 import {NotFound} from './pages/not-found/not-found';
 import {productGuard} from './guards/product-guard';
 import {Register} from './pages/register/register';
+import {EmailVerification} from './pages/email-verification/email-verification';
 
 export const routes: Routes = [
   {path: 'products', component: Product},
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path: 'list-cat', component: Category, canActivate:[productGuard]},
   {path: 'login', component: Login},
   {path: 'register', component: Register},
+  {path: 'email-verification', component: EmailVerification},
   {path: 'not-found', component: NotFound},
   {path: '',redirectTo:"products",pathMatch:"full", },
 ];

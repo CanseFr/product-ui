@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {UserType} from '../models/user';
+import {UserClass, UserType} from '../models/user';
 import {HttpClient} from '@angular/common/http';
-import {apiLogin} from '../config';
+import {apiAuth, apiLogin} from '../config';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 
@@ -9,13 +9,21 @@ import {Router} from '@angular/router';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  public loggedUser: string|undefined;
+  public loggedUser: string | undefined;
   public isLoggedIn = false;
   public roles: string[] = [];
   public token: string | undefined;
-
+  public registeredUser: UserClass = new UserClass()
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private router: Router) {
+  }
+
+  setRegisteredUser(user: UserClass) {
+    this.registeredUser = user
+  }
+
+  getRegisteredUser() {
+    return this.registeredUser
   }
 
   restoreAuth(): void {
@@ -62,10 +70,14 @@ export class AuthenticationService {
     this.decodeJWT();
   }
 
-  isAdmin():Boolean{
+  isAdmin(): Boolean {
     if (!this.roles)
       return false;
-    return this.roles.indexOf('ADMIN') >=0;
+    return this.roles.indexOf('ADMIN') >= 0;
+  }
+
+  registerUser(user: UserClass) {
+    return this.http.post(`${apiAuth}/register`, user, {observe: 'response'})
   }
 
   signOut(): void {
@@ -75,6 +87,10 @@ export class AuthenticationService {
     this.isLoggedIn = false;
     localStorage.removeItem('jwt');
     this.router.navigate(['/login']);
+  }
+
+  validateEmail(code: string){
+    return this.http.get<UserClass>(`${apiAuth}/verify-email/${code}`)
   }
 
 }
