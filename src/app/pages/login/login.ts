@@ -16,16 +16,11 @@ import {Router, RouterLink} from '@angular/router';
 export class Login {
   user: UserClass = new UserClass();
   error = false
+  message:string="Login ou mot de passe incorrect !"
 
   constructor(private authService: AuthenticationService, private router: Router) {
   }
 
-  // onLoggedIn() {
-  //   this.authService.login(this.user).subscribe((ok) => {
-  //     if (ok) this.router.navigate(['/']);
-  //     else this.error = true;
-  //   });
-  // }
   onLoggedIn()
   {
     this.authService.login(this.user).subscribe({
@@ -35,6 +30,10 @@ export class Login {
         this.router.navigate(['/']);
       },
       error: (err: any) => {
+        this.error = true;
+        if(err.error.errorCause =="disabled"){
+          this.message = 'Utilisateur désactivé !'
+        }
         this.error = true;
       }
     });
