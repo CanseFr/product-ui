@@ -3,6 +3,7 @@ import {UserClass} from '../../models/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {FormsModule} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-email-verification',
@@ -18,7 +19,12 @@ export class EmailVerification implements OnInit {
   user: UserClass = new UserClass();
   err = "";
 
-  constructor(private route: ActivatedRoute, private authService: AuthenticationService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthenticationService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,7 +34,7 @@ export class EmailVerification implements OnInit {
   onValidateEmail(){
     this.authService.validateEmail(this.code).subscribe({
       next: (res) => {
-        alert("Login validé")
+        this.toastr.success("Login validé")
         this.authService.login(this.user).subscribe({
           next: (data) => {
             let jwtToken = data.headers.get("Authorization")!;

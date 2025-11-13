@@ -3,6 +3,7 @@ import {UserClass} from '../../models/user';
 import {FormsModule} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Router, RouterLink} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,9 @@ export class Login {
   error = false
   message:string="Login ou mot de passe incorrect !"
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private authService: AuthenticationService,
+              private router: Router,
+              ) {
   }
 
   onLoggedIn()

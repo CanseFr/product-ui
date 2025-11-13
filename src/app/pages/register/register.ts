@@ -1,8 +1,9 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {UserClass} from '../../models/user';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -20,31 +21,35 @@ export class Register {
   private router = inject(Router);
   private authService = inject(AuthenticationService);
   confirmPassword?: string;
-  err:any;
+  err: any;
+  loading:boolean = false;
 
-  constructor() {
+  constructor(private toastr: ToastrService,) {
   }
 
   loginForm = this.formBuilder.group({
-    username: ['', [Validators.required, Validators.minLength(3),  Validators.maxLength(20)]],
+    username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required,  Validators.minLength(6)]],
-    confirmPassword : ['', [Validators.required]]
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', [Validators.required]]
   });
 
   // TODO : Ameliorer cette logique, si client recharge page ou autre, le state disparait, le login n'est plus possible, il faut aller le faire manuellement
-  onRegister(){
-    this.user.username =this.loginForm.value.username!
-    this.user.email =this.loginForm.value.email!
+  onRegister() {
+    this.loading = true
+    this.user.username = this.loginForm.value.username!
+    this.user.email = this.loginForm.value.email!
     this.user.password = this.loginForm.value.password!
     this.authService.registerUser(this.user).subscribe({
       next: res => {
-        this. authService.setRegisteredUser(this.user);
-        alert("veillez confirmer votre email");
+        this.authService.setRegisteredUser(this.user);
+        this.loading=false;
+        this.toastr.success("veillez confirmer votre email");
         this.router.navigate(["/email-verification"]);
       },
       error: err => {
-        if(err.error.errorCode == "USER_EMAIL_ALREADY_EXISTS") {
+        this.loading=false;
+        if (err.error.errorCode == "USER_EMAIL_ALREADY_EXISTS") {
           this.err = err.error.message;
         }
       }
