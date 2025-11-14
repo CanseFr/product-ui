@@ -42,17 +42,14 @@ export class UpdateProduct implements OnInit {
       .subscribe(p => {
         this.product = p
         this.categoryIdSelected = p.category?.id
-        this.productService.loadImage(p.image?.id!)
-          .subscribe((i:Image) =>this.image = 'data:' + i.type + ';base64,' + i.image )
-      })
-        // this.getImage(p)
-  // })
+        this.getImage(p)
+  })
   }
 
-  // getImage(p: ProductType) {
-  //   this.productService.loadImage(p.image?.id!)
-  //     .subscribe((i:Image) =>this.image = 'data:' + i.type + ';base64,' + i.image )
-  // }
+  getImage(p: ProductType) {
+    this.productService.loadImage(p.image?.id!)
+      .subscribe((i:Image) =>this.image = 'data:' + i.type + ';base64,' + i.image )
+  }
 
   getCategories() {
     this.productService.getCategories()
