@@ -28,7 +28,15 @@ export class Product implements OnInit {
 
   loadProducts() {
     this.productService.listProducts()
-      .subscribe(p => this.products = p)
+      .subscribe(prods => {
+        this.products = prods
+        this.products.forEach(prod => this.getImages(prod))
+      })
+  }
+
+  getImages(prod: ProductType){
+      this.productService.loadImage(prod.image?.id!)
+        .subscribe(img => prod.imageStr = 'data:' + img.type + ';base64,' + img.image )
   }
 
   deleteProduct(index: number) {
