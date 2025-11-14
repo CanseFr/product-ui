@@ -60,29 +60,35 @@ export class UpdateProduct implements OnInit {
         this.categoryIdSelected = this.product.category!.id
       })
   }
+  //
+  // updateProduct() {
+  //   this.product.category = this.categories.find(
+  //     (cat) => cat.id == this.categoryIdSelected
+  //   )!;
+  //   if (this.isImageUpdated) {
+  //     this.productService
+  //       .uploadImage(this.uploadedImage!, this.uploadedImage?.name!)
+  //       .subscribe((img: Image) => {
+  //         this.product.image = img;
+  //         this.productService
+  //           .updateProduct(this.product)
+  //           .subscribe((prod) => {
+  //             this.router.navigate(['/products']);
+  //           });
+  //       });
+  //   } else {
+  //     this.productService
+  //       .updateProduct(this.product)
+  //       .subscribe((prod) => {
+  //         this.router.navigate(['/products']);
+  //       });
+  //   }
+  // }
 
-  updateProduct() {
-    this.product.category = this.categories.find(
-      (cat) => cat.id == this.categoryIdSelected
-    )!;
-    if (this.isImageUpdated) {
-      this.productService
-        .uploadImage(this.uploadedImage!, this.uploadedImage?.name!)
-        .subscribe((img: Image) => {
-          this.product.image = img;
-          this.productService
-            .updateProduct(this.product)
-            .subscribe((prod) => {
-              this.router.navigate(['/products']);
-            });
-        });
-    } else {
-      this.productService
-        .updateProduct(this.product)
-        .subscribe((prod) => {
-          this.router.navigate(['/products']);
-        });
-    }
+  updateProduct(){
+    this.product.category = this.categories.find(cat=>cat.id === this.categoryIdSelected)
+    this.productService.updateProduct(this.product)
+      .subscribe(()=>this.router.navigate(['/products']))
   }
 
   onImageUpload(event: any) {
@@ -92,6 +98,23 @@ export class UpdateProduct implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(this.uploadedImage!)
       reader.onload = () => this.image = reader.result as string;
+    }
+  }
+
+  onAddImageProduct() {
+    this.productService.uploadImage(this.uploadedImage!,this.uploadedImage?.name!, this.product.id!)
+      .subscribe((img: Image) => this.product.images?.push(img))
+  }
+
+   deleteImage(img: Image) {
+    let conf = confirm("Etes vous sûr ?")
+    if(conf){
+      this.productService.deleteImage(img.id!).subscribe(()=> {
+        const index = this.product.images!.indexOf(img, 0)
+        if(index > -1){
+          this.product.images!.splice(index, 1)
+        }
+      })
     }
   }
 }

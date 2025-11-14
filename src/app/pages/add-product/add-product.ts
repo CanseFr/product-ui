@@ -29,16 +29,19 @@ export class AddProduct implements OnInit {
       .subscribe(c => this.categories = c)
   }
 
-  addProduct() {
-    this.productService.uploadImage(this.uploadedImage!, this.uploadedImage?.name!)
-      .subscribe((img: Image) => {
-        this.newProduct.image = img;
-        this.newProduct.category = this.categories.find(cat => cat.id === Number(this.categoryIdSelected))
-        this.newProduct.dateCreated = new Date()
-
-        this.productService.addProduct(this.newProduct)
-          .subscribe(() => this.router.navigate(['/products']))
-      })
+  addProduct(){
+    this.newProduct.category = this.categories.find(cat => cat.id
+      == this.categoryIdSelected)!;
+    this.productService
+      .addProduct(this.newProduct)
+      .subscribe((prod) => {
+        this.productService
+          .uploadImage(this.uploadedImage!,
+            this.uploadedImage!.name,prod.id!)
+          .subscribe((response: any) => {}
+          );
+        this.router.navigate(['products']);
+      });
   }
 
   onImageUpload(event: any) {

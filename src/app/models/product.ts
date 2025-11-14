@@ -9,4 +9,5 @@ export interface ProductType{
   category?: CategoryType;
   image?: Image;
   imageStr?:string;
+  images?: Image[];
 }

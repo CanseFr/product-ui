@@ -57,16 +57,18 @@ export class ProductService {
     return this.http.delete(`${apiCategory}/${catId}`, httpOptions)
   }
 
-  uploadImage(file: File, fileName: string) {
+  uploadImage(file: File, fileName: string, idProduct: number) {
     const imageFromData = new FormData();
     imageFromData.append('image', file, fileName);
-    return this.http.post(`${apiImage}/upload`, imageFromData)
+    return this.http.post(`${apiImage}/upload/${idProduct}`, imageFromData)
   }
 
   loadImage(id:number){
     return this.http.get<Image>(`${apiImage}/${id}`)
   }
 
-
+  deleteImage(id: number) {
+    return this.http.delete<Image>(`${apiImage}/${id}`)
+  }
 
 }

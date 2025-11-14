@@ -7,19 +7,23 @@
       <label>ID Produit</label>
       <input disabled type="text" [(ngModel)]="product.id" name="idProduit" class="form-control">
     </div>
+
     <div class="col-sm-4 col-md-4 col-lg-4">
       <label>Nom Produit</label>
       <input type="text" [(ngModel)]="product.nameProduct" name="nomProduit" class="form-control">
     </div>
+
     <div class="col-sm-2 col-md-2 col-lg-2">
       <label>Prix Produit</label>
       <input type="number" [(ngModel)]="product.priceProduct" name="prixProduit" class="form-control">
     </div>
+
     <div class="col-sm-4 col-md-4 col-lg-4">
       <label>Date création</label>
       <input disabled type="date" [ngModel]="product.dateCreated | date: 'yyyy-MM-dd'"
              (ngModelChange)=" product.dateCreated= $event" name="dateCreation" class="form-control">
     </div>
+
     <div class="col-sm-4 col-md-4 col-lg-4">
       <label>Categorie</label>
       <select id="id" name="id" class="form-select" aria-label="Default select example"
@@ -35,6 +39,10 @@
       <input type="file" (change)="onImageUpload($event)" class="form-control">
     </div>
 
+    <div class="mt-2">
+      <button type="submit" (click)="onAddImageProduct()" class="btn btn-success" >Ajouter image</button>
+    </div>
+
     <div class="col-sm-16 col-md-16 col-lg-16 mt-2">
       @if (image) {
         <img [src]="image" class="card-img-top img-fluid rounded-start" style="width: 500px; height: 300px" alt="Logo"/>
@@ -42,6 +50,37 @@
         <p></p>
       }
     </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>
+              Images
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+            @for ( img of product.images; track $index){
+          <tr>
+
+            <td>
+              <img class="card-img-top img-responsive" src="{{'data:' + img.type + ';base64,' + img.image}}" style="height: 50px; width: 100px"  alt="Images">
+            </td>
+            <td style="width: 20%">
+              <a class="btn btn-danger" (click)="deleteImage(img)">
+                Supprimer
+              </a>
+            </td>
+          </tr>
+            }
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="mt-2">
       <button type="submit" (click)="updateProduct()" class="btn btn-success">Modifer</button>
     </div>

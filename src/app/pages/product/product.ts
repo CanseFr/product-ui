@@ -24,19 +24,19 @@ export class Product implements OnInit {
 
   ngOnInit(): void {
     this.loadProducts()
+
   }
 
   loadProducts() {
     this.productService.listProducts()
       .subscribe(prods => {
         this.products = prods
-        this.products.forEach(prod => this.getImages(prod))
+        this.products.forEach(prod => {
+          if (prod.images) {
+            prod.imageStr = prod.imageStr = 'data:' + prod.images[0].type + ';base64,' + prod.images[0].image
+          }
+        })
       })
-  }
-
-  getImages(prod: ProductType){
-      this.productService.loadImage(prod.image?.id!)
-        .subscribe(img => prod.imageStr = 'data:' + img.type + ';base64,' + img.image )
   }
 
   deleteProduct(index: number) {
