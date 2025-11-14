@@ -5,6 +5,7 @@ import {ProductType} from '../../models/product';
 import {DatePipe} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {CategoryType} from '../../models/category';
+import {Image} from '../../models/Image';
 
 @Component({
   selector: 'app-update-product',
@@ -18,26 +19,46 @@ import {CategoryType} from '../../models/category';
 export class UpdateProduct implements OnInit {
 
   product!: ProductType
-  param: string
+  param?: string
   categories!: CategoryType[]
   categoryIdSelected?: number
+  image?:string;
 
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {
-    this.param = this.activatedRoute.snapshot.paramMap.get('id')!
-    this.productService.getProductById(Number(this.param))
-      .subscribe(p => this.product = p)
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.getProducts()
+    this.getCategories()
+
+  }
+
+  getProducts(){
+    this.param = this.activatedRoute.snapshot.paramMap.get('id')!
+    this.productService.getProductById(Number(this.param))
+      .subscribe(p => {
+        this.product = p
+        this.categoryIdSelected = p.category?.id
+        this.productService.loadImage(p.image?.id!)
+          .subscribe((i:Image) =>this.image = 'data:' + i.type + ';base64,' + i.image )
+      })
+        // this.getImage(p)
+  // })
+  }
+
+  // getImage(p: ProductType) {
+  //   this.productService.loadImage(p.image?.id!)
+  //     .subscribe((i:Image) =>this.image = 'data:' + i.type + ';base64,' + i.image )
+  // }
+
+  getCategories() {
     this.productService.getCategories()
       .subscribe(c => {
         this.categories = c
         this.categoryIdSelected = this.product.category!.id
-        console.log(this.product.category)
       })
   }
 

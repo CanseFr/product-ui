@@ -64,7 +64,7 @@ export class ProductService {
   }
 
   loadImage(id:number){
-    return this.http.get<Image>(`${apiImage}/get/info/${id}`)
+    return this.http.get<Image>(`${apiImage}/${id}`)
   }
 
 
