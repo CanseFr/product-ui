@@ -23,6 +23,8 @@ export class UpdateProduct implements OnInit {
   categories!: CategoryType[]
   categoryIdSelected?: number
   image?:string;
+  uploadedImage?:File;
+  isImageUpdated: Boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -60,8 +62,36 @@ export class UpdateProduct implements OnInit {
   }
 
   updateProduct() {
-    this.product.category = this.categories.find(cat => cat.id === Number(this.categoryIdSelected))
-    this.productService.updateProduct(this.product)
-      .subscribe(() => this.router.navigate(['/products']))
+    this.product.category = this.categories.find(
+      (cat) => cat.id == this.categoryIdSelected
+    )!;
+    if (this.isImageUpdated) {
+      this.productService
+        .uploadImage(this.uploadedImage!, this.uploadedImage?.name!)
+        .subscribe((img: Image) => {
+          this.product.image = img;
+          this.productService
+            .updateProduct(this.product)
+            .subscribe((prod) => {
+              this.router.navigate(['/products']);
+            });
+        });
+    } else {
+      this.productService
+        .updateProduct(this.product)
+        .subscribe((prod) => {
+          this.router.navigate(['/products']);
+        });
+    }
+  }
+
+  onImageUpload(event: any) {
+    if(event.target.files && event.target.files.length){
+      this.uploadedImage = event.target.files[0]
+      this.isImageUpdated = true
+      const reader = new FileReader();
+      reader.readAsDataURL(this.uploadedImage!)
+      reader.onload = () => this.image = reader.result as string;
+    }
   }
 }
