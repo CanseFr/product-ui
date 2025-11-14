@@ -1,4 +1,5 @@
 import {CategoryType} from './category';
+import {Image} from './Image';
 
 export interface ProductType{
   id?:number;
@@ -6,4 +7,6 @@ export interface ProductType{
   priceProduct?:number;
   dateCreated?:Date;
   category?: CategoryType;
+  image?: Image;
+  imageStr?:string;
 }

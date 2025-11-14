@@ -8,6 +8,7 @@ export const httpOptions = {
 }
 
 export const apiProduct = environment.baseUrl + "/api" + "/product"
+export const apiImage = environment.baseUrl + "/api" + "/image"
 export const apiCategory = environment.baseUrl + "/api" + "/cat"
 export const apiLogin = environment.baseUrl + "/api" + "/login"
 export const apiAuth = environment.baseUrl + "/api" + "/auth"

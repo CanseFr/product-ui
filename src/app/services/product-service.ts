@@ -2,9 +2,10 @@ import {Injectable, OnInit} from '@angular/core';
 import {ProductType} from '../models/product';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {apiCategory, apiProduct, httpOptions} from '../config';
+import {apiCategory, apiImage, apiProduct, httpOptions} from '../config';
 import {CategoryType} from '../models/category';
 import {AuthenticationService} from './authentication.service';
+import {Image} from '../models/Image';
 
 
 @Injectable({
@@ -55,4 +56,17 @@ export class ProductService {
   deleteCategoryById(catId: number){
     return this.http.delete(`${apiCategory}/${catId}`, httpOptions)
   }
+
+  uploadImage(file: File, fileName: string) {
+    const imageFromData = new FormData();
+    imageFromData.append('image', file, fileName);
+    return this.http.post(`${apiImage}/upload`, imageFromData)
+  }
+
+  loadImage(id:number){
+    return this.http.get<Image>(`${apiImage}/get/info/${id}`)
+  }
+
+
+
 }
