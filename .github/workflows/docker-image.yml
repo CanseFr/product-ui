@@ -58,5 +58,5 @@ jobs:
           script: "
           docker stop $(docker ps -a -q)
            docker pull cansefr/product-angular:latest
-           docker run -d -p 4200:4200 product-angular
+           docker run -p 4200:4200 product-angular
           "
