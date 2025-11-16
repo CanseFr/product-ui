@@ -57,11 +57,4 @@ jobs:
           port: ${{ secrets.PORT }}
           script: "
           touch test.md
-
-          docker stop $(docker ps -a -q)
-
-          git pull cansefr/product-angular:latest
-
-          docker run -d -p 4200:4200 product-angular
-
           "
