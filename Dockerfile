@@ -1,11 +1,22 @@
-FROM node:alpine as prod
+# ===== STAGE 1 : Build Angular =====
+FROM node:20-alpine AS build-stage
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+COPY package*.json ./
+RUN npm ci
 
-RUN npm install -g @angular/cli
+COPY . .
 
-RUN npm install
+RUN npm run build
 
-CMD ["ng", "build"]
+# ===== STAGE 2 : Nginx pour servir les fichiers =====
+FROM nginx:1.27-alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build-stage /app/dist/product-ui/browser /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

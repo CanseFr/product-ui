@@ -1,8 +1,8 @@
 FROM node:alpine as dev
 
-WORKDIR /usr/src/app
+WORKDIR /front
 
-COPY . /usr/src/app
+COPY . /front
 
 RUN npm install -g @angular/cli
 
