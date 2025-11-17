@@ -1,4 +1,4 @@
-FROM node:alpine as prod
+FROM node:alpine as dev
 
 WORKDIR /usr/src/app
 
@@ -8,4 +8,4 @@ RUN npm install -g @angular/cli
 
 RUN npm install
 
-CMD ["ng", "build"]
+CMD ["ng", "serve", "--host", "0.0.0.0"]
