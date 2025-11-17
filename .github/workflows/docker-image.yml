@@ -47,6 +47,17 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            docker pull cansefr/product-angular:latest
-            docker run -d -p 4200:4200 cansefr/product-angular:latest
+            IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/product-angular:latest
+            CONTAINER_NAME=product-angular-ui
 
+            echo "Stopping existing container (if any)..."
+            if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
+              docker stop $CONTAINER_NAME || true
+              docker rm $CONTAINER_NAME || true
+            fi
+
+            echo "Pulling latest image..."
+            docker pull $IMAGE_NAME
+
+            echo "Starting new container..."
+            docker run -d --name $CONTAINER_NAME -p 80:80 $IMAGE_NAME
